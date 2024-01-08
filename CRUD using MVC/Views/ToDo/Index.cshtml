@@ -1,0 +1,110 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<ToDo>
+@{
+}
+<style>
+    /* Your custom styles for the list of ToDo items */
+    .btn-primary {
+        display: block;
+        width: 200px;
+        padding: 10px;
+        background-color: #007bff;
+        border: none;
+        color: white;
+        border-radius: 4px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table tr:hover {
+            background-color: #f2f2f2;
+        }
+
+    .mt-4 {
+        margin-top: 20px;
+    }
+
+    .bg-light {
+        background-color: #f5f5f5;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    h3 {
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+</style>
+<div>
+    <a asp-controller="ToDo" asp-action="create"class="btn btn-primary">create ToDo</a>
+</div>
+    @if (Model.Count()>0)
+{
+    <table class="table table-hover table-striped">
+        <thead>
+            <th>
+                <td>id</td>
+                <td>Name</td>
+                <td>Date</td>
+                <td>IsFinished</td>
+            </th>
+        </thead>
+
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.ToDoId</td>
+                    <td>@item.Name</td>
+                    <td>@item.createdDate.Month</td>
+                    <td>@item.IsFinished</td>
+                    <td>
+                        <a asp-controller="ToDo" asp-action="Update" asp-route-id=@item.ToDoId class="btn btn-info">Update</a>
+                    </td>
+                    <td>
+                        <a asp-controller="ToDo" asp-action="Delete" asp-route-id=@item.ToDoId class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="mt-4 bg-light">
+        <h3>No ToDo Are Available</h3>
+
+    </div>
+}
